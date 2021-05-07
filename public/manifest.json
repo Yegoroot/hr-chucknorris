@@ -1,0 +1,23 @@
+{
+  "short_name": "Chucknorris",
+  "name": "Chucknorris",
+  "icons": [
+    {
+      "src": "icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "Scope": "/",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#f4f6f8",
+  "background_color": "#f4f6f8",
+  "splash_pages": null
+}
