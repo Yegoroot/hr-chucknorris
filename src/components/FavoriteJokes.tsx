@@ -51,7 +51,10 @@ export const FavoriteJokes = () => {
 
       <div className={classes.list}>
         {data.map((j) => (
-          <div className={classes.joke}>
+          <div
+            className={classes.joke}
+            key={j.id}
+          >
             <h4>{j.value}</h4>
             <Button onClick={() => dispatch(unlikeJoke(j.id))}>
               <Close className={classes.icon} />

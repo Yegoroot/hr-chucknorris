@@ -35,11 +35,25 @@ export const Joke = () => {
     return (
       <Paper className={classes.root}>
         <b>{value}</b>
-        <IconButton className={classes.like}>
-          {isLiked
-            ? <Favorite onClick={() => dispatch(unlikeJoke(id))} />
-            : <FavoriteBorder onClick={() => dispatch(likeJoke())} />}
-        </IconButton>
+
+        {isLiked
+          ? (
+            <IconButton
+              className={classes.like}
+              onClick={() => dispatch(unlikeJoke(id))}
+            >
+              <Favorite />
+            </IconButton>
+          )
+          : (
+            <IconButton
+              className={classes.like}
+              onClick={() => dispatch(likeJoke())}
+            >
+              <FavoriteBorder />
+            </IconButton>
+          )}
+
       </Paper>
     )
   }

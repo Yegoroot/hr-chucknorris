@@ -25,9 +25,11 @@ interface InitialState {
   item: Item & OptItem
 }
 
+const initialFavoriteJokes = localStorage.getItem('jokes')
+
 const initialState: InitialState = {
   list: {
-    data: [],
+    data: initialFavoriteJokes ? JSON.parse(initialFavoriteJokes) : []
   },
   item: {
     loading: false,
@@ -53,13 +55,16 @@ const slice = createSlice({
     likeJoke(joke) {
       const j = joke.item
       joke.list.data.push(j)
+      localStorage.setItem('jokes', JSON.stringify(joke.list.data))
     },
     unlikeJoke(joke, action) {
       const { id } = action.payload
       joke.list.data = joke.list.data.filter((j) => j.id !== id)
+      localStorage.setItem('jokes', JSON.stringify(joke.list.data))
     },
     unlikeAll(joke) {
       joke.list.data = []
+      localStorage.removeItem('jokes')
     }
 
   }
