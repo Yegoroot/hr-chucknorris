@@ -5,7 +5,6 @@ import { AppDispatch } from '../store/index'
 import { instanceAxios as axios } from '../utils/axios'
 
 type Item = {
-  loading: boolean,
   categories?: [],
   created_at?: Date,
   icon_url?: string,
@@ -15,11 +14,16 @@ type Item = {
   value?: string
 }
 
+type OptItem = {
+  loading: boolean,
+  intervaled: boolean
+}
+
 interface InitialState {
   list: {
     data: any[];
   };
-  item: Item
+  item: Item & OptItem
 }
 
 const initialState: InitialState = {
@@ -27,6 +31,7 @@ const initialState: InitialState = {
     data: [],
   },
   item: {
+    intervaled: false,
     loading: false,
   },
 }
@@ -40,7 +45,7 @@ const slice = createSlice({
       joke.item = { ...initialState.item }
       joke.item.loading = true
     },
-    getjokeList(joke, action) {
+    getjokeItem(joke, action) {
       const { data } = action.payload
       console.log(data)
       joke.item = { ...initialState.item, ...data }
@@ -51,17 +56,17 @@ const slice = createSlice({
 })
 
 // INSIDE
-const getjokeList = () => async (dispatch: AppDispatch) => {
+const getjokeItem = () => async (dispatch: AppDispatch) => {
   const response = await axios.get(`${API_BASE_URL}`).catch(() => ({ data: null }))
 
   const { data } = response
-  dispatch(slice.actions.getjokeList({ data }))
+  dispatch(slice.actions.getjokeItem({ data }))
 }
 
 // OUTSIDE
-export const getjokeRequest = () => async (dispatch: AppDispatch) => {
+export const getJokeRequest = () => async (dispatch: AppDispatch) => {
   dispatch(slice.actions.getjokeRequest())
-  dispatch(getjokeList())
+  dispatch(getjokeItem())
 }
 
 export const { reducer } = slice
