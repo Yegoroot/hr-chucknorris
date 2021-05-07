@@ -8,7 +8,8 @@ import {
   Redirect,
   Route
 } from 'react-router-dom'
-import LoadingScreen from './components/LoadingScreen'
+// import LoadingScreen from './components/LoadingScreen'
+import { CircularProgress } from '@material-ui/core'
 import HomeView from './views/Home'
 import DashboardView from './views/Dashboard'
 
@@ -22,7 +23,7 @@ type RouteR = {
 }
 
 export const renderRoutes = (routes: Array<RouteR> = []) => (
-  <Suspense fallback={<LoadingScreen />}>
+  <Suspense fallback={<CircularProgress />}>
     <Switch>
       {routes.map((route, i) => {
         const Guard = route.guard || Fragment
