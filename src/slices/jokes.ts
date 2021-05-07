@@ -47,13 +47,15 @@ const slice = createSlice({
     },
     getjokeItem(joke, action) {
       const { data } = action.payload
-      console.log(data)
       joke.item = { ...initialState.item, ...data }
       joke.item.loading = false
     },
 
     likeJoke(joke) {
       const j = joke.item
+      if (joke.list.data.length >= 10) {
+        joke.list.data.shift()
+      }
       joke.list.data.push(j)
       localStorage.setItem('jokes', JSON.stringify(joke.list.data))
     },
