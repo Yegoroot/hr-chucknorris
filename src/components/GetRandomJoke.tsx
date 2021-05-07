@@ -1,12 +1,11 @@
 /* eslint-disable import/prefer-default-export */
 import React from 'react'
-import {
-  Button, makeStyles, CircularProgress
-} from '@material-ui/core'
+import { Button, makeStyles } from '@material-ui/core'
 import { useDispatch, useSelector } from '../store/hooks'
 import { getJokeRequest } from '../slices/jokes'
+import { Joke } from './Joke'
 
-const useStyles = makeStyles((/* theme */) => ({
+const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
     alignItems: 'flex-start',
@@ -24,7 +23,7 @@ const useStyles = makeStyles((/* theme */) => ({
 export const GetRandomJoke = () => {
   const dispatch = useDispatch()
   const classes = useStyles()
-  const { loading, value } = useSelector((store) => store.jokes.item)
+  const { loading, id } = useSelector((store) => store.jokes.item)
   const [isIntervaled, setIsIntervaled] = React.useState(false)
 
   const onRequestJoke = () => {
@@ -54,10 +53,6 @@ export const GetRandomJoke = () => {
     return () => stop()
   }, [isIntervaled])
 
-  const Joke = () => (loading ? (
-    <CircularProgress color="primary" />
-  ) : <b>{value}</b>)
-
   return (
     <div className={classes.root}>
 
@@ -68,7 +63,7 @@ export const GetRandomJoke = () => {
           disabled={isIntervaled}
           className={classes.button1}
         >
-          {!value && !loading ? 'Show Joke' : 'Reload Joke'}
+          {!id && !loading ? 'Show Joke' : 'Reload Joke'}
         </Button>
 
         <Button

@@ -16,7 +16,6 @@ type Item = {
 
 type OptItem = {
   loading: boolean,
-  intervaled: boolean
 }
 
 interface InitialState {
@@ -31,7 +30,6 @@ const initialState: InitialState = {
     data: [],
   },
   item: {
-    intervaled: false,
     loading: false,
   },
 }
@@ -52,6 +50,15 @@ const slice = createSlice({
       joke.item.loading = false
     },
 
+    likeJoke(joke) {
+      const j = joke.item
+      joke.list.data.push(j)
+    },
+    unlikeJoke(joke, action) {
+      const { id } = action.payload
+      joke.list.data = joke.list.data.filter((j) => j.id !== id)
+    }
+
   }
 })
 
@@ -67,6 +74,14 @@ const getjokeItem = () => async (dispatch: AppDispatch) => {
 export const getJokeRequest = () => async (dispatch: AppDispatch) => {
   dispatch(slice.actions.getjokeRequest())
   dispatch(getjokeItem())
+}
+
+export const likeJoke = () => async (dispatch: AppDispatch) => {
+  dispatch(slice.actions.likeJoke())
+}
+
+export const unlikeJoke = (id: string) => async (dispatch: AppDispatch) => {
+  dispatch(slice.actions.unlikeJoke({ id }))
 }
 
 export const { reducer } = slice
