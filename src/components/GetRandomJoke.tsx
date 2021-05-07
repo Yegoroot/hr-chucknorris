@@ -62,6 +62,7 @@ export const GetRandomJoke = () => {
           variant="outlined"
           disabled={isIntervaled}
           className={classes.button1}
+          color="primary"
         >
           {!id && !loading ? 'Show Joke' : 'Reload Joke'}
         </Button>
@@ -69,7 +70,6 @@ export const GetRandomJoke = () => {
         <Button
           onClick={() => setIsIntervaled((state) => !state)}
           variant="outlined"
-          color="primary"
         >
           {isIntervaled ? 'Stop Showing Every 3 sec' : 'Show Joke Every 3 sec'}
         </Button>

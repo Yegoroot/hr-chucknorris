@@ -57,6 +57,9 @@ const slice = createSlice({
     unlikeJoke(joke, action) {
       const { id } = action.payload
       joke.list.data = joke.list.data.filter((j) => j.id !== id)
+    },
+    unlikeAll(joke) {
+      joke.list.data = []
     }
 
   }
@@ -82,6 +85,10 @@ export const likeJoke = () => async (dispatch: AppDispatch) => {
 
 export const unlikeJoke = (id: string) => async (dispatch: AppDispatch) => {
   dispatch(slice.actions.unlikeJoke({ id }))
+}
+
+export const unlikeAll = () => async (dispatch: AppDispatch) => {
+  dispatch(slice.actions.unlikeAll())
 }
 
 export const { reducer } = slice

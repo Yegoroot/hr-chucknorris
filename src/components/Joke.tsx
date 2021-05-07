@@ -1,6 +1,8 @@
 /* eslint-disable import/prefer-default-export */
 import React from 'react'
-import { CircularProgress, IconButton, makeStyles } from '@material-ui/core'
+import {
+  CircularProgress, IconButton, makeStyles, Paper
+} from '@material-ui/core'
 import { Favorite, FavoriteBorder } from '@material-ui/icons'
 import { useDispatch, useSelector } from '../store/hooks'
 import { likeJoke, unlikeJoke } from '../slices/jokes'
@@ -9,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
+    padding: 20
   },
   like: {
     color: theme.palette.error.main,
@@ -18,13 +21,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-// Component Joke
 export const Joke = () => {
   const dispatch = useDispatch()
   const classes = useStyles()
   const { loading, id, value } = useSelector((store) => store.jokes.item) // one joke
   const { data } = useSelector((store) => store.jokes.list) // list of jokes
-
   const isLiked = data.find((j) => j.id === id)
 
   if (loading) {
@@ -32,14 +33,14 @@ export const Joke = () => {
   }
   if (id) {
     return (
-      <div className={classes.root}>
+      <Paper className={classes.root}>
         <b>{value}</b>
         <IconButton className={classes.like}>
           {isLiked
             ? <Favorite onClick={() => dispatch(unlikeJoke(id))} />
             : <FavoriteBorder onClick={() => dispatch(likeJoke())} />}
         </IconButton>
-      </div>
+      </Paper>
     )
   }
   return null
